@@ -57,18 +57,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gray-900 rounded"></div>
-            <span className="text-xl font-bold text-gray-900">Blogster</span>
-          </div>
-          <div className="flex items-center gap-6">
-            <a href="/blog" className="text-gray-600 hover:text-gray-900 text-sm font-medium">Articles</a>
-            <a href="/about" className="text-gray-600 hover:text-gray-900 text-sm font-medium">About</a>
-          </div>
-        </div>
-      </nav>
+      
 
       {/* Hero Section */}
       <section className="max-w-4xl mx-auto px-6 pt-20 pb-16">
@@ -213,26 +202,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 mt-20">
-        <div className="max-w-4xl mx-auto px-6 py-12">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-6 h-6 bg-gray-900 rounded"></div>
-                <span className="font-bold text-gray-900">Blogster</span>
-              </div>
-              <p className="text-sm text-gray-500">
-                © 2025 All rights reserved.
-              </p>
-            </div>
-            <div className="flex gap-8">
-              <a href="/blog" className="text-sm text-gray-600 hover:text-gray-900">Articles</a>
-              <a href="/about" className="text-sm text-gray-600 hover:text-gray-900">About</a>
-              <a href="/contact" className="text-sm text-gray-600 hover:text-gray-900">Contact</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      
     </div>
   );
 }
