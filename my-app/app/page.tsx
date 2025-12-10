@@ -1,110 +1,238 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Clock, ArrowRight, Mail, BookOpen, Sparkles } from "lucide-react";
 
 function CurrentTime() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
   useEffect(() => {
-    // Set initial time
     setCurrentTime(new Date());
-    
-    // Update time every second
     const interval = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
-
-    // Cleanup interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
   if (!currentTime) {
-    return <div className="text-gray-500">Loading time...</div>;
+    return <div className="animate-pulse bg-gray-100 h-16 rounded-lg"></div>;
   }
 
   return (
-    <div className="bg-gray-100 p-4 rounded-lg">
-      <h3 className="text-lg font-semibold mb-2">Current Date & Time</h3>
-      <div className="space-y-1">
-        <p className="text-gray-700">
-          <strong>Date:</strong> {currentTime.toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
-        </p>
-        <p className="text-gray-700">
-          <strong>Time:</strong> {currentTime.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-          })}
-        </p>
-        <p className="text-sm text-gray-500 mt-2">
-          This component updates every second using Client-Side Rendering (CSR)
-        </p>
+    <div className="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+      <div className="flex items-center gap-2 mb-2">
+        <Clock className="text-gray-700" size={18} />
+        <span className="text-sm font-medium text-gray-600">Current Time</span>
       </div>
+      <p className="text-2xl font-bold text-gray-900">
+        {currentTime.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        })}
+      </p>
+      <p className="text-sm text-gray-500 mt-1">
+        {currentTime.toLocaleDateString('en-US', {
+          weekday: 'long',
+          month: 'short',
+          day: 'numeric'
+        })}
+      </p>
     </div>
   );
 }
 
 export default function HomePage() {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = () => {
+    if (email) {
+      setSubscribed(true);
+      setTimeout(() => setSubscribed(false), 3000);
+      setEmail("");
+    }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Welcome Section */}
-      <section className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Welcome to Next.js Assignment
-        </h1>
-        <p className="text-xl text-gray-600 mb-8">
-          This project demonstrates various Next.js rendering techniques including SSR, SSG, ISR, and CSR.
-        </p>
-        <div className="flex justify-center space-x-4">
-          <a
-            href="/about"
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Learn About the Author
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-gray-900 rounded"></div>
+            <span className="text-xl font-bold text-gray-900">Blogster</span>
+          </div>
+          <div className="flex items-center gap-6">
+            <a href="/blog" className="text-gray-600 hover:text-gray-900 text-sm font-medium">Articles</a>
+            <a href="/about" className="text-gray-600 hover:text-gray-900 text-sm font-medium">About</a>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="max-w-4xl mx-auto px-6 pt-20 pb-16">
+        <div className="max-w-2xl">
+          <div className="flex items-center gap-2 mb-6">
+            <Sparkles size={20} className="text-gray-900" />
+            <span className="text-sm font-medium text-gray-600">Weekly Updates</span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            Thoughts on software, design, and life
+          </h1>
+          <p className="text-xl text-gray-600 mb-10 leading-relaxed">
+            Writing about web development, product design, and the creative process. 
+            Subscribe to get new posts delivered to your inbox.
+          </p>
+          <div className="flex items-center gap-4">
+            <a
+              href="/blog"
+              className="bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors inline-flex items-center gap-2"
+            >
+              Read Articles
+              <ArrowRight size={18} />
+            </a>
+            <a
+              href="/about"
+              className="text-gray-600 hover:text-gray-900 font-medium inline-flex items-center gap-2"
+            >
+              <BookOpen size={18} />
+              About Me
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="max-w-4xl mx-auto px-6 py-16">
+        <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 md:p-12">
+          <div className="max-w-xl">
+            <div className="flex items-center gap-2 mb-3">
+              <Mail className="text-gray-900" size={24} />
+              <h2 className="text-2xl font-bold text-gray-900">Stay Updated</h2>
+            </div>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Join 2,000+ readers getting thoughtful insights on building great products and living a creative life.
+            </p>
+            
+            {!subscribed ? (
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent text-gray-900"
+                />
+                <button
+                  onClick={handleSubscribe}
+                  className="bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors whitespace-nowrap"
+                >
+                  Subscribe
+                </button>
+              </div>
+            ) : (
+              <div className="bg-green-50 border border-green-200 text-green-900 px-4 py-3 rounded-lg font-medium">
+                ✓ Successfully subscribed! Check your inbox.
+              </div>
+            )}
+            
+            <p className="text-sm text-gray-500 mt-3">
+              No spam, ever. Unsubscribe anytime.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Content */}
+      <section className="max-w-4xl mx-auto px-6 py-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">Popular Posts</h2>
+        <div className="space-y-6">
+          <a href="/blog/post-1" className="block group">
+            <article className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-sm font-medium text-gray-500">Dec 8, 2025</span>
+                <span className="text-sm text-gray-400">·</span>
+                <span className="text-sm text-gray-500">5 min read</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
+                Building for the Long Term
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Why sustainable practices and thoughtful architecture matter more than quick wins.
+              </p>
+            </article>
           </a>
-          <a
-            href="/blog"
-            className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition-colors"
-          >
-            Read Blog Posts
+
+          <a href="/blog/post-2" className="block group">
+            <article className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-sm font-medium text-gray-500">Dec 1, 2025</span>
+                <span className="text-sm text-gray-400">·</span>
+                <span className="text-sm text-gray-500">7 min read</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
+                The Art of Simplicity
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                How removing features can make your product better, not worse.
+              </p>
+            </article>
+          </a>
+
+          <a href="/blog/post-3" className="block group">
+            <article className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-sm font-medium text-gray-500">Nov 24, 2025</span>
+                <span className="text-sm text-gray-400">·</span>
+                <span className="text-sm text-gray-500">4 min read</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
+                Design Systems That Scale
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Creating consistency without sacrificing creativity in growing teams.
+              </p>
+            </article>
+          </a>
+        </div>
+
+        <div className="mt-8 text-center">
+          <a href="/blog" className="text-gray-900 font-medium hover:text-gray-600 inline-flex items-center gap-2">
+            View All Articles
+            <ArrowRight size={18} />
           </a>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-          Rendering Techniques Demonstrated
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-blue-600 mb-2">SSR</h3>
-            <p className="text-gray-600 text-sm">Server-Side Rendering used in the About page</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-green-600 mb-2">SSG</h3>
-            <p className="text-gray-600 text-sm">Static Site Generation used in the Blog list</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-yellow-600 mb-2">ISR</h3>
-            <p className="text-gray-600 text-sm">Incremental Static Regeneration for individual posts</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-purple-600 mb-2">CSR</h3>
-            <p className="text-gray-600 text-sm">Client-Side Rendering for dynamic content below</p>
-          </div>
+      {/* Live Clock Demo */}
+      <section className="max-w-4xl mx-auto px-6 py-16">
+        <div className="max-w-sm">
+          <CurrentTime />
         </div>
       </section>
 
-      {/* CSR Date/Time Component */}
-      <section>
-        <CurrentTime />
-      </section>
+      {/* Footer */}
+      <footer className="border-t border-gray-200 mt-20">
+        <div className="max-w-4xl mx-auto px-6 py-12">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-6 h-6 bg-gray-900 rounded"></div>
+                <span className="font-bold text-gray-900">Blogster</span>
+              </div>
+              <p className="text-sm text-gray-500">
+                © 2025 All rights reserved.
+              </p>
+            </div>
+            <div className="flex gap-8">
+              <a href="/blog" className="text-sm text-gray-600 hover:text-gray-900">Articles</a>
+              <a href="/about" className="text-sm text-gray-600 hover:text-gray-900">About</a>
+              <a href="/contact" className="text-sm text-gray-600 hover:text-gray-900">Contact</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
