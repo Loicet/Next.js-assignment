@@ -16,14 +16,14 @@ export default function BlogLayout({
   return (
     <div className="flex min-h-[600px]">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-100 p-4 rounded-lg mr-6">
+      <aside className="w-64 bg-gray-800 p-2 rounded-lg mr-6 ">
         <h2 className="text-lg font-semibold mb-4">Categories</h2>
         <ul className="space-y-2">
           {categories.map((category) => (
             <li key={category.slug}>
               <Link
                 href={`/blog?category=${category.slug}`}
-                className="block px-3 py-2 rounded-md hover:bg-gray-200 transition-colors"
+                className="block px-3 py-2 rounded-md text-white hover:bg-gray-700 active:bg-gray-600 focus:bg-gray-700"
               >
                 {category.name}
               </Link>
