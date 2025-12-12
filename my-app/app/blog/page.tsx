@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog - Next.js Assignment",
+  title: "Blogster",
   description: "Blog posts page with list of all posts",
 };
 
