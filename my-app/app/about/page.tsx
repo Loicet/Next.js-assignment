@@ -1,5 +1,9 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { Mail, MapPin, Phone, Globe, Briefcase, ArrowLeft } from "lucide-react";
+
+// Use dynamic rendering to avoid build-time API calls
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: "About - Blogster",
@@ -41,10 +45,10 @@ export default async function AboutPage() {
       {/* Navigation */}
 
       <div className="max-w-4xl mx-auto px-6 py-16">
-        <a href="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8 text-sm font-medium">
+        <Link href="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8 text-sm font-medium">
           <ArrowLeft size={16} />
           Back to Home
-        </a>
+        </Link>
 
         {/* Hero Section */}
         <div className="mb-16">
@@ -156,12 +160,12 @@ export default async function AboutPage() {
             >
               Get in Touch
             </a>
-            <a 
+            <Link 
               href="/blog"
               className="border border-gray-300 text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors"
             >
               Read My Articles
-            </a>
+            </Link>
           </div>
         </div>
       </div>

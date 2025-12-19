@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { ArrowLeft, User, Calendar, Clock } from "lucide-react";
 
 interface Post {
@@ -14,15 +15,8 @@ interface User {
   email: string;
 }
 
-// Generate static params for all possible blog post IDs
-export async function generateStaticParams() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts: Post[] = await res.json();
-  
-  return posts.slice(0, 10).map((post) => ({
-    id: post.id.toString(),
-  }));
-}
+// Use dynamic rendering to avoid build-time API calls
+export const dynamic = 'force-dynamic';
 
 // Fetch individual post data
 async function getPost(id: string): Promise<Post> {
@@ -77,17 +71,17 @@ export default async function BlogPostPage({
             <span className="text-xl font-bold text-gray-900">Blogster</span>
           </div>
           <div className="flex items-center gap-6">
-            <a href="/blog" className="text-gray-600 hover:text-gray-900 text-sm font-medium">Articles</a>
-            <a href="/about" className="text-gray-600 hover:text-gray-900 text-sm font-medium">About</a>
+            <Link href="/blog" className="text-gray-600 hover:text-gray-900 text-sm font-medium">Articles</Link>
+            <Link href="/about" className="text-gray-600 hover:text-gray-900 text-sm font-medium">About</Link>
           </div>
         </div>
       </nav>
 
       <article className="max-w-3xl mx-auto px-6 py-16">
-        <a href="/blog" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8 text-sm font-medium">
+        <Link href="/blog" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8 text-sm font-medium">
           <ArrowLeft size={16} />
           Back to Articles
-        </a>
+        </Link>
 
         {/* Article Header */}
         <header className="mb-12">
@@ -148,7 +142,7 @@ export default async function BlogPostPage({
         <div className="mt-16">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">More Articles</h3>
           <div className="grid md:grid-cols-2 gap-6">
-            <a href="/blog/1" className="block group">
+            <Link href="/blog/1" className="block group">
               <article className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow">
                 <h4 className="font-bold text-gray-900 mb-2 group-hover:text-gray-600">
                   Building for the Long Term
@@ -157,9 +151,9 @@ export default async function BlogPostPage({
                   Why sustainable practices matter more than quick wins.
                 </p>
               </article>
-            </a>
+            </Link>
             
-            <a href="/blog/2" className="block group">
+            <Link href="/blog/2" className="block group">
               <article className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow">
                 <h4 className="font-bold text-gray-900 mb-2 group-hover:text-gray-600">
                   The Art of Simplicity
@@ -168,7 +162,7 @@ export default async function BlogPostPage({
                   How removing features can make your product better.
                 </p>
               </article>
-            </a>
+            </Link>
           </div>
         </div>
       </article>
@@ -187,9 +181,9 @@ export default async function BlogPostPage({
               </p>
             </div>
             <div className="flex gap-8">
-              <a href="/blog" className="text-sm text-gray-600 hover:text-gray-900">Articles</a>
-              <a href="/about" className="text-sm text-gray-600 hover:text-gray-900">About</a>
-              <a href="/contact" className="text-sm text-gray-600 hover:text-gray-900">Contact</a>
+              <Link href="/blog" className="text-sm text-gray-600 hover:text-gray-900">Articles</Link>
+              <Link href="/about" className="text-sm text-gray-600 hover:text-gray-900">About</Link>
+              <Link href="/contact" className="text-sm text-gray-600 hover:text-gray-900">Contact</Link>
             </div>
           </div>
         </div>
@@ -198,5 +192,3 @@ export default async function BlogPostPage({
   );
 }
 
-// Configure ISR with 60 second revalidation period
-export const revalidate = 60;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Clock, ArrowRight, Mail, BookOpen, Sparkles } from "lucide-react";
 
 function CurrentTime() {
@@ -74,20 +75,20 @@ export default function HomePage() {
             Subscribe to get new posts delivered to your inbox.
           </p>
           <div className="flex items-center gap-4">
-            <a
+            <Link
               href="/blog"
               className="bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors inline-flex items-center gap-2"
             >
               Read Articles
               <ArrowRight size={18} />
-            </a>
-            <a
+            </Link>
+            <Link
               href="/about"
               className="text-gray-600 hover:text-gray-900 font-medium inline-flex items-center gap-2"
             >
               <BookOpen size={18} />
               About Me
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -137,7 +138,7 @@ export default function HomePage() {
       <section className="max-w-4xl mx-auto px-6 py-16">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Popular Posts</h2>
         <div className="space-y-6">
-          <a href="/blog/post-1" className="block group">
+          <Link href="/blog/post-1" className="block group">
             <article className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-sm font-medium text-gray-500">Dec 8, 2025</span>
@@ -151,9 +152,9 @@ export default function HomePage() {
                 Why sustainable practices and thoughtful architecture matter more than quick wins.
               </p>
             </article>
-          </a>
+          </Link>
 
-          <a href="/blog/post-2" className="block group">
+          <Link href="/blog/post-2" className="block group">
             <article className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-sm font-medium text-gray-500">Dec 1, 2025</span>
@@ -167,9 +168,9 @@ export default function HomePage() {
                 How removing features can make your product better, not worse.
               </p>
             </article>
-          </a>
+          </Link>
 
-          <a href="/blog/post-3" className="block group">
+          <Link href="/blog/post-3" className="block group">
             <article className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-sm font-medium text-gray-500">Nov 24, 2025</span>
@@ -183,14 +184,14 @@ export default function HomePage() {
                 Creating consistency without sacrificing creativity in growing teams.
               </p>
             </article>
-          </a>
+          </Link>
         </div>
 
         <div className="mt-8 text-center">
-          <a href="/blog" className="text-gray-900 font-medium hover:text-gray-600 inline-flex items-center gap-2">
+          <Link href="/blog" className="text-gray-900 font-medium hover:text-gray-600 inline-flex items-center gap-2">
             View All Articles
             <ArrowRight size={18} />
-          </a>
+          </Link>
         </div>
       </section>
 

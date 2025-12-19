@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -33,9 +34,9 @@ export default async function BlogPage() {
       <div className="max-w-4xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="mb-12">
-          <a href="/" className="text-gray-600 hover:text-gray-900 text-sm font-medium mb-4 inline-block">
+          <Link href="/" className="text-gray-600 hover:text-gray-900 text-sm font-medium mb-4 inline-block">
             ← Back to Home
-          </a>
+          </Link>
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
             All Articles
           </h1>
@@ -60,7 +61,7 @@ export default async function BlogPage() {
         <div className="space-y-8">
           {displayPosts.map((post) => (
             <article key={post.id} className="border-b border-gray-200 pb-8 last:border-b-0">
-              <a href={`/blog/${post.id}`} className="group block">
+              <Link href={`/blog/${post.id}`} className="group block">
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-sm font-medium text-gray-500">Dec {post.id}, 2025</span>
                   <span className="text-sm text-gray-400">·</span>
@@ -82,7 +83,7 @@ export default async function BlogPage() {
                     <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>
-              </a>
+              </Link>
             </article>
           ))}
         </div>
